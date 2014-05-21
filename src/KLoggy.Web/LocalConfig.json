@@ -1,10 +1,10 @@
 {
     "Data": {
         "DefaultConnection": {
-            "Connectionstring": "Server=.\SQLEXPRESS;Database=MusicStore;Trusted_Connection=True;MultipleActiveResultSets=true"
+            "Connectionstring": "Server=.\\SQLEXPRESS;Database=MusicStore;Trusted_Connection=True;MultipleActiveResultSets=true"
         },
         "IdentityConnection": {
-            "Connectionstring": "Server=.\SQLEXPRESS;Database=MusicStoreIdentity;Trusted_Connection=True;MultipleActiveResultSets=true"
+            "Connectionstring": "Server=.\\SQLEXPRESS;Database=MusicStoreIdentity;Trusted_Connection=True;MultipleActiveResultSets=true"
         }
     }
 }
