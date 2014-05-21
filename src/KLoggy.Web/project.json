@@ -1,0 +1,24 @@
+{
+    "name": "Kloggy.Web",
+    "authors":[
+        "Tugberk Ugurlu"
+    ],
+    "description": "New version of Bloggy which is written on KRuntime",
+    "version": "0.1-alpha-*",
+    "dependencies": {
+    },
+    "commands": {
+        "run": "run server.urls=http://localhost:5003"
+    },
+    "configurations": {
+        "net45": {
+            "dependencies": {
+            }
+        },
+        
+        "k10": {
+            "dependencies": {
+            }
+        }
+    }
+}
