@@ -1,8 +1,13 @@
 using Microsoft.AspNet.Builder;
+using System;
 
-public class Startup 
+namespace KLoggy.Web 
 {
-    public void Configure(IBuilder builder)
+    public class Startup 
     {
+        public void Configure(IBuilder builder)
+        {
+            Console.WriteLine(string.Concat("Hello from '", typeof(Startup).FullName, "'"));
+        }
     }
 }
