@@ -12,7 +12,7 @@
         "Microsoft.Framework.ConfigurationModel": "0.1-alpha-*",
         "Microsoft.Framework.ConfigurationModel.Json": "0.1-alpha-*",
         "Microsoft.Framework.DependencyInjection": "0.1-alpha-*",
-        "Microsoft.AspNet.RequestContainer": "0.1-alpha-build-0519" /* UseServices extension method is inside this */
+        "Microsoft.AspNet.RequestContainer": "0.1-alpha-*" /* UseServices extension method is inside this */
     },
     "commands": {
         "web": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5002",
