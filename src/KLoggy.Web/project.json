@@ -6,19 +6,25 @@
     "description": "New version of Bloggy which is written on KRuntime",
     "version": "0.1-alpha-*",
     "dependencies": {
-        "Microsoft.AspNet.Http": "0.1-alpha-*",
-        "Microsoft.AspNet.Hosting": "0.1-alpha-*",
-        "Microsoft.AspNet.Server.WebListener": "0.1-alpha-*",
-        "Microsoft.Framework.ConfigurationModel": "0.1-alpha-*",
-        "Microsoft.Framework.ConfigurationModel.Json": "0.1-alpha-*",
-        "Microsoft.Framework.DependencyInjection": "0.1-alpha-*",
-        "Microsoft.AspNet.RequestContainer": "0.1-alpha-*" /* UseServices extension method is inside this */
+        "Kestrel": "1.0.0-alpha3",
+        "Microsoft.AspNet.Diagnostics": "1.0.0-alpha3",
+        "Microsoft.AspNet.StaticFiles": "1.0.0-alpha3",
+        "Microsoft.AspNet.Mvc": "6.0.0-alpha3",
+        
+        "Microsoft.AspNet.Http": "1.0.0-alpha3",
+        "Microsoft.AspNet.Hosting": "1.0.0-alpha3",
+        "Microsoft.AspNet.Server.WebListener": "1.0.0-alpha3",
+        "Microsoft.Framework.ConfigurationModel": "1.0.0-alpha3",
+        "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-alpha3",
+        "Microsoft.Framework.DependencyInjection": "1.0.0-alpha3",
+        "Microsoft.AspNet.RequestContainer": "1.0.0-alpha3" /* UseServices extension method is inside this */
     },
     "commands": {
         "web": "Microsoft.AspNet.Hosting server=Microsoft.AspNet.Server.WebListener server.urls=http://localhost:5002",
-        "run": "run server.urls=http://localhost:5003"
+        "run": "run server.urls=http://localhost:5003",
+        "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5004"
     },
-    "configurations": {
+    "frameworks": {
         "net45": {
             "dependencies": {
             }
