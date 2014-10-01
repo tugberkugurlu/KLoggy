@@ -26,7 +26,7 @@
     "kestrel": "Microsoft.AspNet.Hosting --server Kestrel --server.urls http://localhost:5004"
   },
   "frameworks": {
-    "net45": {
+    "aspnet50": {
     },
     "aspnetcore50": {
       "dependencies": {
