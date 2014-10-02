@@ -7,14 +7,16 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     gitshasuffix = require('gulp-gitshasuffix'),
     gulpif = require('gulp-if'),
-    order = require('gulp-order');
+    order = require('gulp-order'),
+    gutil = require('gulp-util'),
+    ini = require('ini');
 
 gulp.task('clean', function(cb) {
     del(['assets/css', 'assets/js', 'assets/less', 'assets/img', 'assets/fonts'], cb)
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('fonts', 'scripts', 'styles');
+    gulp.start('fonts', 'scripts', 'styles', 'version');
 });
 
 gulp.task('fonts', function() {
@@ -51,3 +53,44 @@ gulp.task('styles', function() {
         .pipe(minifycss())
         .pipe(gulp.dest('assets/css'));
 });
+
+gulp.task('version', function () {
+    
+    return getGitSha('./', function(error, output) {
+        if(error) {
+            console.error(output);
+        } else {
+            return writeToFile("git.ini", output)
+                    .pipe(gulp.dest('./'));
+        }
+    });
+})
+
+// https://www.npmjs.org/package/gitsha
+function getGitSha(path, callback) {
+    var exec = require('child_process').exec;
+    return exec('git rev-parse HEAD', {
+      cwd: path
+    }, function(error, stdout, stderr) {
+      if (error) {
+        return callback(error, stderr.trim());
+      }
+      return callback(null, stdout.trim());
+    });
+}
+
+// https://github.com/isaacs/ini
+// http://stackoverflow.com/questions/23230569/how-do-you-create-a-file-from-a-string-in-gulp
+function writeToFile(filename, string) {
+    var src = require('stream').Readable({ objectMode: true });
+    var config = {
+        sha: string
+    };
+    
+    src._read = function () {
+        this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(ini.stringify(config)) }));
+        this.push(null);
+    }
+
+    return src;
+}
