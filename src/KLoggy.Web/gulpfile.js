@@ -11,38 +11,55 @@ var gulp = require('gulp'),
     gutil = require('gulp-util'),
     ini = require('ini');
 
+gulp.task('default', ['clean'], function() {
+    gulp.start('fonts', 'scripts', 'styles', 'git-info');
+});
+
 gulp.task('clean', function(cb) {
     del(['assets/css', 'assets/js', 'assets/less', 'assets/img', 'assets/fonts'], cb)
 });
 
-gulp.task('default', ['clean'], function() {
-    gulp.start('fonts', 'scripts', 'styles', 'version');
-});
-
 gulp.task('fonts', function() {
     
-   return gulp.src(['bower_components/bootstrap/dist/fonts/*', 'bower_components/fontawesome/fonts/*'])
-              .pipe(gulp.dest('assets/fonts'));
+    var fileList = [
+        'bower_components/bootstrap/dist/fonts/*', 
+        'bower_components/fontawesome/fonts/*'
+    ];
+    
+    return gulp.src(fileList)
+        .pipe(gulp.dest('assets/fonts'));
 });
 
 gulp.task('scripts', function() {
     
-   return gulp.src([
-        'bower_components/jquery/dist/*',
-        'bower_components/bootstrap/dist/js/*',
-        'bower_components/angular/*.js', 
-        'bower_components/angular/*.map',
-        'bower_components/underscore/*.js',
-        'bower_components/underscore/*.map',
-       
+    var fileList = [
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/angular/angular.js',
+        'bower_components/underscore/underscore.js',
+        'bower_components/bootstrap/dist/js/bootstrap.js',
+
         'client/js/*'
-       ]
-   ).pipe(gulp.dest('assets/js'));
+    ];
+    
+    return gulp.src(fileList)
+        .pipe(gulp.dest('assets/js'))
+        .pipe(concat('script.js'))
+        .pipe(gulp.dest('assets/js'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gitshasuffix({ length: 40, separator: "-" }))
+        .pipe(uglify())
+        .pipe(gulp.dest('assets/js'));
 });
 
 gulp.task('styles', function() {
     
-    return gulp.src(['client/less/bootstrap.less', 'client/less/main.less', 'bower_components/fontawesome/css/font-awesome.css'])
+    var fileList = [
+        'client/less/bootstrap.less',
+        'client/less/main.less',
+        'bower_components/fontawesome/css/font-awesome.css'
+    ];
+    
+    return gulp.src(fileList)
         .pipe(gulpif(/[.]less$/, less()))
         .pipe(gulp.dest('assets/css'))
         .pipe(order(['**/bootstrap.css', '**/font-awesome.css', '**/main.css']))
@@ -54,7 +71,7 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('assets/css'));
 });
 
-gulp.task('version', function () {
+gulp.task('git-info', function () {
     
     return getGitSha('./', function(error, output) {
         if(error) {
@@ -64,7 +81,7 @@ gulp.task('version', function () {
                     .pipe(gulp.dest('./'));
         }
     });
-})
+});
 
 // https://www.npmjs.org/package/gitsha
 function getGitSha(path, callback) {
