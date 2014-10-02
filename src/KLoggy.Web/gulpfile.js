@@ -105,7 +105,7 @@ function writeToFile(filename, string) {
     };
     
     src._read = function () {
-        this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(ini.stringify(config)) }));
+        this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(ini.stringify(config, { section: 'git' })) }));
         this.push(null);
     }
 
