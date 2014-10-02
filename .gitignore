@@ -182,3 +182,4 @@ nuget.exe
 node_modules
 bower_components
 assets
+git.ini
