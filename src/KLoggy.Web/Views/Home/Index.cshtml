@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Foo Bar...</title>
+    <title>Hello World...</title>
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/font-awesome.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/assets/css/main.css")" />
 </head>
 <body>
-    @(Component.Invoke("AssetsLinker", "/assets/js/script")).js
+    <div class="col-md-8" ng-app="mainApp">
+        <hr />
+    </div>
+    <div class="col-md-4">
+        <hr />
+
+        <ul id="badge-list">
+            <li><a class="btn btn-info" href="http://twitter.com/tourismgeek"><i class="fa fa-twitter fa-lg"></i></a></li>
+            <li><a class="btn btn-info" href="http://www.linkedin.com/in/tugberk"><i class="fa fa-linkedin fa-lg"></i></a></li>
+            <li><a class="btn btn-info" href="http://github.com/tugberkugurlu"><i class="fa fa-github fa-lg"></i></a></li>
+            <li><a class="btn btn-info" href="http://stackoverflow.com/users/463785/tugberk"><i class="fa fa-stack-exchange fa-lg"></i></a></li>
+            <li><a class="btn btn-info" href="/Feeds/Rss"><i class="fa fa-rss fa-lg"></i></a></li>
+        </ul>
+    </div>
 </body>
 </html>

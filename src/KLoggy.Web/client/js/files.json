@@ -1,0 +1,9 @@
+{
+    "assetsDir": 'assets/css',
+    
+    "files": [
+        { baseDir: 'client/less/bootstrap.less', fileName: 'bootstrap.css' },
+        { baseDir: 'client/less/main.less', fileName: 'main.css' },
+        { baseDir: 'bower_components/fontawesome/css/font-awesome.css', fileName: 'font-awesome.css' }
+    ]
+}

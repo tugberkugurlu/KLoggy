@@ -5,57 +5,24 @@ using Microsoft.AspNet.Mvc.Razor;
 using Microsoft.AspNet.Routing;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.DependencyInjection;
+using KLoggy.Web.Infrastructure;
 using System;
 
 namespace KLoggy.Web 
-{
-    public class HomeController : Controller
-    {
-        public ActionResult Index()
-        {
-            return View();
-        }
-    }
-    
-    public class AssetsOptions
-    {
-        public string LatestCommitSha { get; set; }
-    }
-    
-    [ViewComponent(Name = "AssetsLinker")]
-    public class AssetsLinker : ViewComponent 
-    {
-        private readonly IOptionsAccessor<AssetsOptions> _optionsAccessor;
-        
-        public AssetsLinker(IOptionsAccessor<AssetsOptions> optionsAccessor)
-        {
-            _optionsAccessor = optionsAccessor;
-        }
-        
-        public IViewComponentResult Invoke(string fileName)
-        {
-            return Content(string.Format("{0}-{1}", fileName, _optionsAccessor.Options.LatestCommitSha));
-        }
-    }
-    
+{    
     public class Startup 
     {
         public void Configure(IApplicationBuilder app)
         {
-            var configuration = new Configuration()
-                .AddJsonFile(@"App_Data\config.json")
-                .AddIniFile("git.ini");
-            
-            string latestCommitSha;
-            configuration.TryGet("git:sha", out latestCommitSha);
+            var configuration = new Configuration();
+            configuration.AddIniFile(@"App_Data\config.ini");
+            configuration.AddIniFile(@"App_Data\git.ini");
             
             app.UseFileServer();
             app.UseErrorPage();
             
             app.UseServices(services =>
-            {   
-                services.AddMvc();
-                
+            {
                 services.SetupOptions<MvcOptions>(options =>
                 {
                     // Configure MVC options here. such as filters, etc.
@@ -66,30 +33,30 @@ namespace KLoggy.Web
                     // Configure Razor View Engine options here. such as LanguageViewLocationExpander
                 });
                 
-                services.SetupOptions<AssetsOptions>(options =>
+                services.SetupOptions<AppOptions>(options =>
                 {
-                    options.LatestCommitSha = latestCommitSha;
+                    options.ServeCdnContent = Convert.ToBoolean(configuration.Get("App:ServeCdnContent"));
+                    options.CdnServerBaseUrl = configuration.Get("App:CdnServerBaseUrl");
+                    options.GenerateLowercaseUrls = Convert.ToBoolean(configuration.Get("App:GenerateLowercaseUrls"));
+                    options.LatestCommitSha = configuration.Get("git:sha");
                 });
+                
+                // Add MVC services to the services container
+                services.AddMvc(configuration);
+                
+                services.AddScoped<IUrlHelper, CustomUrlHelper>();
             });
             
             app.UseMvc(routes =>
             {
                 routes.MapRoute("areaRoute", "{area:exists}/{controller}/{action}");
-
-                routes.MapRoute(
-                    "controllerActionRoute",
-                    "{controller}/{action}",
-                    new { controller = "Home", action = "Index" },
-                    constraints: null,
-                    dataTokens: new { NameSpace = "default" });
+                routes.MapRoute("defaultRoute", "{controller=Home}/{action=Index}");
 
                 routes.MapRoute(
                     "controllerRoute",
                     "{controller}",
                     new { controller = "Home" });
             });
-            
-            Console.WriteLine("commit: {0}", latestCommitSha);
         }
     }
 }

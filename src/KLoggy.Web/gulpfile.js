@@ -78,7 +78,7 @@ gulp.task('git-info', function () {
             console.error(output);
         } else {
             return writeToFile("git.ini", output)
-                    .pipe(gulp.dest('./'));
+                    .pipe(gulp.dest('./App_Data'));
         }
     });
 });

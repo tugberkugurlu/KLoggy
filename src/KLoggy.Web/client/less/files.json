@@ -1,0 +1,10 @@
+{
+    "assetsDir": 'assets/js',
+    
+    "files": [
+        { baseDir: 'bower_components/jquery/dist/jquery.js', fileName: 'jquery.js' },
+        { baseDir: 'bower_components/angular/angular.js', fileName: 'angular.js' },
+        { baseDir: 'bower_components/underscore/underscore.js', fileName: 'underscore.js' },
+        { baseDir: 'bower_components/bootstrap/dist/js/bootstrap.js', fileName: 'bootstrap.js' }
+    ]
+}
