@@ -3,14 +3,18 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     less = require('gulp-less'),
-    del = require('del');
+    del = require('del'),
+    rename = require('gulp-rename'),
+    gitshasuffix = require('gulp-gitshasuffix'),
+    gulpif = require('gulp-if'),
+    order = require('gulp-order');
 
 gulp.task('clean', function(cb) {
     del(['assets/css', 'assets/js', 'assets/less', 'assets/img', 'assets/fonts'], cb)
 });
 
 gulp.task('default', ['clean'], function() {
-    gulp.start('scripts', 'fonts', 'styles', 'less');
+    gulp.start('fonts', 'scripts', 'styles');
 });
 
 gulp.task('fonts', function() {
@@ -36,18 +40,14 @@ gulp.task('scripts', function() {
 
 gulp.task('styles', function() {
     
-   return gulp.src('bower_components/fontawesome/css/font-awesome.css')
-              .pipe(gulp.dest('assets/css'));
-});
-
-
-gulp.task('less', function() {
-    
-    gulp.src('client/less/bootstrap.less')
-        .pipe(less())
-        .pipe(gulp.dest('assets/css'));
-    
-    gulp.src('client/less/main.less')
-        .pipe(less())
+    return gulp.src(['client/less/bootstrap.less', 'client/less/main.less', 'bower_components/fontawesome/css/font-awesome.css'])
+        .pipe(gulpif(/[.]less$/, less()))
+        .pipe(gulp.dest('assets/css'))
+        .pipe(order(['**/bootstrap.css', '**/font-awesome.css', '**/main.css']))
+        .pipe(concat('style.css'))
+        .pipe(gulp.dest('assets/css'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gitshasuffix({ length: 40, separator: "-" }))
+        .pipe(minifycss())
         .pipe(gulp.dest('assets/css'));
 });
