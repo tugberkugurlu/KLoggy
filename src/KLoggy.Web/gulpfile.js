@@ -38,7 +38,7 @@ gulp.task('scripts', function() {
         'bower_components/underscore/underscore.js',
         'bower_components/bootstrap/dist/js/bootstrap.js',
 
-        'client/js/*'
+        'client/js/*.js'
     ];
     
     return gulp.src(fileList)
