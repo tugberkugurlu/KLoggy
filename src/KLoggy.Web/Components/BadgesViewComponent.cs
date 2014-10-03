@@ -1,5 +1,6 @@
 using Microsoft.AspNet.Mvc;
 using System.Threading.Tasks;
+using KLoggy.Web.Infrastructure;
 using System;
 
 namespace KLoggy.Web.Components
