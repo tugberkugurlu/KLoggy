@@ -39,5 +39,9 @@
         "System.Threading.Tasks": "4.0.10.0"
       }
     }
-  }
+  },
+  "pack-exclude": [
+      "node_modules/",
+      "bower_components/"
+  ]
 }
