@@ -181,5 +181,5 @@ nuget.exe
 # node stuff
 node_modules
 bower_components
-assets
+src/KLoggy.Web/assets
 git.ini

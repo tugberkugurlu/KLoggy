@@ -1,0 +1,5 @@
+@model IEnumerable<string>
+@foreach(var filePath in Model)
+{
+    <script src="@filePath"></script>
+}
