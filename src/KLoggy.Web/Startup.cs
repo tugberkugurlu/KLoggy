@@ -39,6 +39,7 @@ namespace KLoggy.Web
                     options.ServeCdnContent = Convert.ToBoolean(configuration.Get("App:ServeCdnContent"));
                     options.CdnServerBaseUrl = configuration.Get("App:CdnServerBaseUrl");
                     options.GenerateLowercaseUrls = Convert.ToBoolean(configuration.Get("App:GenerateLowercaseUrls"));
+                    options.EnableBundlingAndMinification = Convert.ToBoolean(configuration.Get("App:EnableBundlingAndMinification"));
                     options.LatestCommitSha = configuration.Get("git:sha");
                 });
                 

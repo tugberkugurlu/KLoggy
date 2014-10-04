@@ -1,6 +1,6 @@
 {
     "assetsDir": 'assets/js',
-    "minifiedFileName": "scripts",
+    "minifiedFileName": "script",
     
     "files": [
         { baseDir: 'bower_components/jquery/dist/jquery.js', fileName: 'jquery.js' },

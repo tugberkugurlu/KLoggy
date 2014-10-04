@@ -45,20 +45,32 @@ namespace KLoggy.Web.Components
             {
                 viewName = "Scripts";
                 AssetInfo assetInfo = _assetManager.GetScripts();
-                foreach(var assetFileInfo in assetInfo.Files)
+                if(_appOptionsAccessor.Options.EnableBundlingAndMinification)
                 {
-                    // TODO: Look here if we need to serve minified + bundled file
-                    filePaths.Add(_urlHelper.Content(string.Format("~/assets/js/{0}", assetFileInfo.FileName)));
+                    filePaths.Add(_urlHelper.Content(string.Format("~/assets/js/{0}.min-{1}.js", assetInfo.MinifiedFileName, _appOptionsAccessor.Options.LatestCommitSha)));
+                }
+                else
+                {
+                    foreach(var assetFileInfo in assetInfo.Files)
+                    {
+                        filePaths.Add(_urlHelper.Content(string.Format("~/assets/js/{0}", assetFileInfo.FileName)));
+                    }
                 }
             }
             else if(assetType.Equals("styles", StringComparison.OrdinalIgnoreCase))
             {
                 viewName = "Styles";
                 AssetInfo assetInfo = _assetManager.GetStyles();
-                foreach(var assetFileInfo in assetInfo.Files)
+                if(_appOptionsAccessor.Options.EnableBundlingAndMinification)
                 {
-                    // TODO: Look here if we need to serve minified + bundled file
-                    filePaths.Add(_urlHelper.Content(string.Format("~/assets/css/{0}", assetFileInfo.FileName)));
+                    filePaths.Add(_urlHelper.Content(string.Format("~/assets/css/{0}.min-{1}.css", assetInfo.MinifiedFileName, _appOptionsAccessor.Options.LatestCommitSha)));
+                }
+                else
+                {
+                    foreach(var assetFileInfo in assetInfo.Files)
+                    {
+                        filePaths.Add(_urlHelper.Content(string.Format("~/assets/css/{0}", assetFileInfo.FileName)));
+                    }
                 }
             }
             else 

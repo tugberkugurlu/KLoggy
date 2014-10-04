@@ -1,6 +1,6 @@
 {
     "assetsDir": 'assets/css',
-    "minifiedFileName": "styles",
+    "minifiedFileName": "style",
     
     "files": [
         { baseDir: 'client/less/bootstrap.less', fileName: 'bootstrap.css' },
