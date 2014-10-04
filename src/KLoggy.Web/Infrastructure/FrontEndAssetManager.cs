@@ -25,12 +25,12 @@ namespace KLoggy.Web.Infrastructure
             };
         }
         
-        public static AssetInfo GetScripts()
+        public AssetInfo GetScripts()
         {
             return GetAssetInfo(_scriptsAppRelativePath);
         }
         
-        public static AssetInfo GetStyles()
+        public AssetInfo GetStyles()
         {
             return GetAssetInfo(_stylesAppRelativePath);
         }

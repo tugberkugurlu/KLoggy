@@ -21,9 +21,9 @@ namespace KLoggy.Web.Infrastructure
         private readonly IOptionsAccessor<AppOptions> _appOptions;
         private readonly HttpContext _httpContext;
 
-        public CustomUrlHelper(IContextAccessor<ActionContext> contextAccessor, IActionSelector actionSelector,
-                                IOptionsAccessor<AppOptions> appOptions)
-            : base(contextAccessor, actionSelector)
+        public CustomUrlHelper(IContextAccessor<ActionContext> contextAccessor, 
+                               IActionSelector actionSelector,
+                               IOptionsAccessor<AppOptions> appOptions) : base(contextAccessor, actionSelector)
         {
             _appOptions = appOptions;
             _httpContext = contextAccessor.Value.HttpContext;

@@ -47,6 +47,7 @@ namespace KLoggy.Web
                 
                 services.AddScoped<IUrlHelper, CustomUrlHelper>();
                 services.AddScoped<IBadgesManager, BadgesManager>();
+                services.AddSingleton<FrontEndAssetManager, FrontEndAssetManager>();
             });
             
             app.UseMvc(routes =>

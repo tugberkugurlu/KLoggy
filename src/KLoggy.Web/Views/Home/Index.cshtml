@@ -4,9 +4,8 @@
 <html>
 <head>
     <title>Hello World...</title>
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/bootstrap.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/font-awesome.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/assets/css/main.css")" />
+    @await Component.InvokeAsync("Assets", "styles")
+    @await Component.InvokeAsync("Assets", "scripts")
 </head>
 <body>
     <div class="col-md-8" ng-app="mainApp">
