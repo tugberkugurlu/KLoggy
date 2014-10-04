@@ -1,9 +1,11 @@
 {
-    "assetsDir": 'assets/css',
+    "assetsDir": 'assets/js',
+    "minifiedFileName": "scripts",
     
     "files": [
-        { baseDir: 'client/less/bootstrap.less', fileName: 'bootstrap.css' },
-        { baseDir: 'client/less/main.less', fileName: 'main.css' },
-        { baseDir: 'bower_components/fontawesome/css/font-awesome.css', fileName: 'font-awesome.css' }
+        { baseDir: 'bower_components/jquery/dist/jquery.js', fileName: 'jquery.js' },
+        { baseDir: 'bower_components/angular/angular.js', fileName: 'angular.js' },
+        { baseDir: 'bower_components/underscore/underscore.js', fileName: 'underscore.js' },
+        { baseDir: 'bower_components/bootstrap/dist/js/bootstrap.js', fileName: 'bootstrap.js' }
     ]
 }

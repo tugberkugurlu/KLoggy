@@ -6,6 +6,7 @@ using Microsoft.AspNet.Routing;
 using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.DependencyInjection;
 using KLoggy.Web.Infrastructure;
+using System.Linq;
 using System;
 
 namespace KLoggy.Web 

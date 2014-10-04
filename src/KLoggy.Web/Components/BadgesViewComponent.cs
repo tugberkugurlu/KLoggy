@@ -12,7 +12,7 @@ namespace KLoggy.Web.Components
         
         public BadgesViewComponent(IBadgesManager badgeManager)
         {
-            if(badgeManager == null)
+            if (badgeManager == null)
             {
                 throw new ArgumentNullException("badgeManager");
             }
