@@ -176,10 +176,8 @@ FakesAssemblies/
 # Custom
 artifacts/
 nuget.exe
-*.csproj
-
-# node stuff
 node_modules
 bower_components
 src/KLoggy.Web/assets
 git.ini
+*.sln.ide
