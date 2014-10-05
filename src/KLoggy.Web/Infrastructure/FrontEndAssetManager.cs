@@ -1,10 +1,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.IO;
-using System.Collections.Generic;
-using System;
 
-namespace KLoggy.Web.Infrastructure 
+namespace KLoggy.Web.Infrastructure
 {
     public class FrontEndAssetManager
     {

@@ -3,14 +3,12 @@ using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Razor;
 using Microsoft.AspNet.Routing;
-using Microsoft.Framework.OptionsModel;
 using Microsoft.Framework.DependencyInjection;
 using KLoggy.Web.Infrastructure;
-using System.Linq;
 using System;
 
-namespace KLoggy.Web 
-{    
+namespace KLoggy.Web
+{
     public class Startup 
     {
         public void Configure(IApplicationBuilder app)

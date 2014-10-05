@@ -1,14 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 
-namespace KLoggy.Web.Infrastructure 
+namespace KLoggy.Web.Infrastructure
 {
-    public interface IBadgesManager 
-    {
-        Task<IEnumerable<Badge>> GetAllAsync();
-    }
-    
     public class BadgesManager : IBadgesManager
     {
         private static readonly IEnumerable<Badge> _badges = new List<Badge> 
