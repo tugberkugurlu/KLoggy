@@ -48,6 +48,8 @@ namespace KLoggy.Web
                 
                 services.AddScoped<IUrlHelper, CustomUrlHelper>();
                 services.AddScoped<IBadgesManager, BadgesManager>();
+                services.AddTransient<IMvcRazorHost, CustomMvcRazorHost>();
+                services.AddTransient<IAssetsHelper, DefaultAssetsHelper>();
                 services.AddSingleton<FrontEndAssetManager, FrontEndAssetManager>();
             });
             
