@@ -6,6 +6,7 @@ using Microsoft.AspNet.Routing;
 using Microsoft.Framework.DependencyInjection;
 using KLoggy.Web.Infrastructure;
 using System;
+using KLoggy.Domain;
 
 namespace KLoggy.Web
 {
@@ -45,7 +46,7 @@ namespace KLoggy.Web
                 services.AddMvc(configuration);
                 
                 services.AddScoped<IUrlHelper, CustomUrlHelper>();
-                services.AddScoped<IBadgesManager, BadgesManager>();
+                services.AddScoped<IProfileLinkManager, InMemoryProfileLinkManager>();
                 services.AddSingleton<FrontEndAssetManager, FrontEndAssetManager>();
             });
             
