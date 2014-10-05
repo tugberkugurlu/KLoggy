@@ -1,13 +1,12 @@
 using Microsoft.AspNet.Mvc;
-using System.Threading.Tasks;
 using KLoggy.Web.Infrastructure;
 using Microsoft.Framework.OptionsModel;
-using System.Collections.Generic;
 using System;
+using Microsoft.AspNet.Mvc.Rendering;
+using System.Text;
 
 namespace KLoggy.Web.Components
 {
-    [ViewComponent(Name = "Assets")]
     public class AssetsViewComponent : ViewComponent
     {
         private readonly IOptionsAccessor<AppOptions> _appOptionsAccessor;
@@ -36,49 +35,85 @@ namespace KLoggy.Web.Components
             _appOptionsAccessor = appOptionsAccessor;
         }
         
-        public IViewComponentResult Invoke(string assetType)
+        public HtmlString Invoke(string assetType)
         {
-            string viewName;
-            IList<string> filePaths = new List<string>();
-            
-            if(assetType.Equals("scripts", StringComparison.OrdinalIgnoreCase))
+            HtmlString result;
+            if (assetType.Equals("scripts", StringComparison.OrdinalIgnoreCase))
             {
-                viewName = "Scripts";
                 AssetInfo assetInfo = _assetManager.GetScripts();
-                if(_appOptionsAccessor.Options.EnableBundlingAndMinification)
-                {
-                    filePaths.Add(_urlHelper.Content(string.Format("~/assets/js/{0}.min-{1}.js", assetInfo.MinifiedFileName, _appOptionsAccessor.Options.LatestCommitSha)));
-                }
-                else
-                {
-                    foreach(var assetFileInfo in assetInfo.Files)
-                    {
-                        filePaths.Add(_urlHelper.Content(string.Format("~/assets/js/{0}", assetFileInfo.FileName)));
-                    }
-                }
+                result = GetHtmlForJs(assetInfo, "~/assets/js/{0}");
             }
             else if(assetType.Equals("styles", StringComparison.OrdinalIgnoreCase))
             {
-                viewName = "Styles";
                 AssetInfo assetInfo = _assetManager.GetStyles();
-                if(_appOptionsAccessor.Options.EnableBundlingAndMinification)
-                {
-                    filePaths.Add(_urlHelper.Content(string.Format("~/assets/css/{0}.min-{1}.css", assetInfo.MinifiedFileName, _appOptionsAccessor.Options.LatestCommitSha)));
-                }
-                else
-                {
-                    foreach(var assetFileInfo in assetInfo.Files)
-                    {
-                        filePaths.Add(_urlHelper.Content(string.Format("~/assets/css/{0}", assetFileInfo.FileName)));
-                    }
-                }
+                result = GetHtmlForCss(assetInfo, "~/assets/css/{0}");
             }
             else 
             {
                 throw new InvalidOperationException(string.Format("Asset type '{0}' is not recognized."));
             }
-                                  
-            return View(viewName, filePaths);
+
+            return result;
+        }
+
+        private HtmlString GetHtmlForCss(AssetInfo assetInfo, string fileFormat)
+        {
+            StringBuilder builder = new StringBuilder();
+            if (_appOptionsAccessor.Options.EnableBundlingAndMinification)
+            {
+                var filePath = _urlHelper.Content(
+                    string.Format(
+                        string.Concat(fileFormat, ".min-{1}.css"),
+                        assetInfo.MinifiedFileName,
+                        _appOptionsAccessor.Options.LatestCommitSha));
+
+                TagBuilder tagBuilder = new TagBuilder("link");
+                tagBuilder.Attributes.Add("rel", "stylesheet");
+                tagBuilder.Attributes.Add("href", filePath);
+                builder.AppendLine(tagBuilder.ToString());
+            }
+            else
+            {
+                foreach (var assetFileInfo in assetInfo.Files)
+                {
+                    string filePath = _urlHelper.Content(string.Format(fileFormat, assetFileInfo.FileName));
+                    TagBuilder tagBuilder = new TagBuilder("link");
+                    tagBuilder.Attributes.Add("rel", "stylesheet");
+                    tagBuilder.Attributes.Add("href", filePath);
+                    builder.AppendLine(tagBuilder.ToString());
+                }
+            }
+
+            return new HtmlString(builder.ToString());
+        }
+
+        private HtmlString GetHtmlForJs(AssetInfo assetInfo, string fileFormat)
+        {
+            StringBuilder builder = new StringBuilder();
+            if (_appOptionsAccessor.Options.EnableBundlingAndMinification)
+            {
+                var filePath = _urlHelper.Content(
+                    string.Format(
+                        string.Concat(fileFormat, ".min-{1}.js"),
+                        assetInfo.MinifiedFileName,
+                        _appOptionsAccessor.Options.LatestCommitSha));
+
+                TagBuilder tagBuilder = new TagBuilder("script");
+                tagBuilder.Attributes.Add("src", filePath);
+                builder.AppendLine(tagBuilder.ToString());
+            }
+            else
+            {
+                foreach (var assetFileInfo in assetInfo.Files)
+                {
+                    string filePath = _urlHelper.Content(string.Format(fileFormat, assetFileInfo.FileName));
+                    TagBuilder tagBuilder = new TagBuilder("script");
+                    tagBuilder.Attributes.Add("src", filePath);
+                    builder.AppendLine(tagBuilder.ToString());
+                }
+            }
+
+            return new HtmlString(builder.ToString());
         }
     }
 }
