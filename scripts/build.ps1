@@ -11,9 +11,12 @@ param(
 $scriptRoot = (Split-Path -parent $MyInvocation.MyCommand.Definition)
 $solutionRoot = (get-item $scriptRoot).parent.fullname
 $artifactsRoot = "$solutionRoot\artifacts"
+$artifactsWebPackRoot = "$artifactsRoot\_WebSites"
+$artifactsKloggyWebRoot = "$artifactsWebPackRoot\approot\src\KLoggy.Web"
 $packagesLocalRoot = "$solutionRoot\packages"
 $srcRoot = "$solutionRoot\src"
 $kloggyWebRoot = "$srcRoot\KLoggy.Web"
+$kloggyDomainRoot = "$srcRoot\KLoggy.Domain"
 
 ## load dependencies
 . $ScriptRoot\_Common.ps1
@@ -39,7 +42,7 @@ if(test-globalnpm -eq $true) {
     
 } else {
     
-    // TODO: Possibly install npm?
+    ## TODO: Possibly install npm?
     throw "npm doesn't exists globally"
 }
 
@@ -51,7 +54,7 @@ if(test-globalbower -eq $true) {
     
 } else {
 
-    // TODO: Possibly install bower?
+    ## TODO: Possibly install bower?
     throw "bower doesn't exists globally"
 }
 
@@ -59,20 +62,36 @@ if(test-globalbower -eq $true) {
 if(test-globalkpm -eq $true) {
     
     Write-Output "Restoring k packages..."
-    kpm restore "$solutionRoot\src" --packages $packagesLocalRoot
+    kpm restore "$solutionRoot\src"
  
+    Write-Output "building the domin application..."
+    kpm build "$kloggyDomainRoot" --configuration $configuration --out $artifactsRoot
+
     Write-Output "building the web application..."
-    kpm build "$kloggyWebRoot" --configuration $configuration
+    kpm build "$kloggyWebRoot" --configuration $configuration --out $artifactsRoot
  
 } else {
     
-    // TODO: Possibly install kpm?
+    ## TODO: Possibly install kpm?
     throw "kpm doesn't exists globally"
 }
 
-## test-globalgulp
+## TODO: Write-Output "running the tests..."
 
-## Write-Output "Building the projects..."
-## Write-Output "running the tests..."
-## Write-Output "Running the gulp tasks..."
-## Write-Output "Packing the web application..."
+if(test-globalgulp -eq $true) {
+
+    Write-Output "Running the gulp tasks..."
+    gulp --cwd $kloggyWebRoot
+    
+} else {
+    
+    ## TODO: Possibly use local gulp?
+    throw "gulp doesn't exists globally"
+}
+
+## At this stage, we know that kpm exists globally
+Write-Output "Packing the web application..."
+kpm pack "$kloggyWebRoot" --configuration $configuration --out $artifactsWebPackRoot
+
+## Copy release configs
+Copy-Item "$solutionRoot\config\config.release.ini" "$artifactsKloggyWebRoot\"
