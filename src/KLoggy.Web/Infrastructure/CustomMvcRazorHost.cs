@@ -3,6 +3,7 @@ using Microsoft.Framework.Runtime;
 using System.Collections.Generic;
 using Microsoft.AspNet.Razor.Generator.Compiler;
 using System.Collections.ObjectModel;
+using KLoggy.Web.Infrastructure;
 using System.Linq;
 
 namespace KLoggy.Web.Infrastructure
@@ -25,7 +26,7 @@ namespace KLoggy.Web.Infrastructure
             get 
             {
                 var defaultInheritedChunks = base.DefaultInheritedChunks.ToList();
-                defaultInheritedChunks.Add(new InjectChunk("KLoggy.Web.Infrastructure.IAssetsHelper", "Assets"));
+                defaultInheritedChunks.Add(new InjectChunk(typeof(IAssetsHelper).FullName, "Assets"));
                 return new ReadOnlyCollection<Chunk>(defaultInheritedChunks);
             }
         }
