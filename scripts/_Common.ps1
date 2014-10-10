@@ -50,7 +50,7 @@ function is64bit() {
 
 ## Others
 
-function check-globalbower() {
+function test-globalbower() {
 
     $result = $true
     try {
@@ -63,7 +63,7 @@ function check-globalbower() {
     return $result
 }
 
-function check-globalnpm() {
+function test-globalnpm() {
 
     $result = $true
     try {
@@ -76,11 +76,24 @@ function check-globalnpm() {
     return $result
 }
 
-function check-globalkpm() {
+function test-globalkpm() {
 
     $result = $true
     try {
         kpm --version
+    }
+    catch {
+        $result = $false
+    }
+    
+    return $result
+}
+
+function test-globalgulp() {
+
+    $result = $true
+    try {
+        gulp --version
     }
     catch {
         $result = $false

@@ -32,7 +32,7 @@ Remove-Dir -path "$kloggyWebRoot\node_modules\"
 Remove-Dir -path "$kloggyWebRoot\bower_components\"
 
 ## install npm components
-if(check-globalnpm -eq $true) {
+if(test-globalnpm -eq $true) {
     
     Write-Output "Installing npm modules..."
     npm install --prefix $kloggyWebRoot
@@ -44,7 +44,7 @@ if(check-globalnpm -eq $true) {
 }
 
 ## install bower components
-if(check-globalbower -eq $true) {
+if(test-globalbower -eq $true) {
 
     Write-Output "Installing bower components..."
     bower install
@@ -56,16 +56,21 @@ if(check-globalbower -eq $true) {
 }
 
 ## kpm restore
-if(check-globalkpm -eq $true) {
+if(test-globalkpm -eq $true) {
     
     Write-Output "Restoring k packages..."
     kpm restore "$solutionRoot\src" --packages $packagesLocalRoot
+ 
+    Write-Output "building the web application..."
+    kpm build "$kloggyWebRoot" --configuration $configuration
  
 } else {
     
     // TODO: Possibly install kpm?
     throw "kpm doesn't exists globally"
 }
+
+## test-globalgulp
 
 ## Write-Output "Building the projects..."
 ## Write-Output "running the tests..."
