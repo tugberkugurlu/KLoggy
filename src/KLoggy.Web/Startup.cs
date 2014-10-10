@@ -21,7 +21,7 @@ namespace KLoggy.Web
             app.UseFileServer();
             app.UseErrorPage();
             
-            app.UseServices(services =>
+            app.UsePerRequestServices(services =>
             {
                 services.SetupOptions<MvcOptions>(options =>
                 {
