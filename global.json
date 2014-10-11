@@ -1,4 +1,3 @@
 {
-    "sources": ["src"],
-    "packages": "packages"
+    "sources": ["src"]
 }
