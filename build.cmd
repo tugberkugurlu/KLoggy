@@ -3,9 +3,9 @@ cd %~dp0
 
 IF "%1" == "" (
 
-  @powershell -NoProfile -ExecutionPolicy unrestricted -File "scripts\build.ps1" "-configuration" "Release"
+  @powershell -NoProfile -ExecutionPolicy unrestricted -command "& .\scripts\build.ps1 -configuration Release"
   
 ) else (
 
-  @powershell -NoProfile -ExecutionPolicy unrestricted -File "scripts\build.ps1" -configuration "%1%"
+  @powershell -NoProfile -ExecutionPolicy unrestricted -command "& .\scripts\build.ps1 -configuration %1%"
 )
