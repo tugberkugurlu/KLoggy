@@ -68,11 +68,23 @@ if(test-globalkpm -eq $true) {
     Write-Output "Restoring k packages..."
     kpm restore "$solutionRoot\src"
  
+    if ($lastexitcode -ne 0) {
+        throw ""
+    }
+ 
     Write-Output "building the domin application..."
     kpm build "$kloggyDomainRoot" --configuration $configuration --out $artifactsRoot
 
+    if ($lastexitcode -ne 0) {
+        throw ""
+    }
+
     Write-Output "building the web application..."
     kpm build "$kloggyWebRoot" --configuration $configuration --out $artifactsRoot
+ 
+    if ($lastexitcode -ne 0) {
+        throw ""
+    }
  
 } else {
     
@@ -96,6 +108,10 @@ if(test-globalgulp -eq $true) {
 ## At this stage, we know that kpm exists globally
 Write-Output "Packing the web application..."
 kpm pack "$kloggyWebRoot" --configuration $configuration --out $artifactsWebPackRoot
+
+if ($lastexitcode -ne 0) {
+    throw ""
+}
 
 ## Copy release configs
 Copy-Item "$solutionRoot\config\config.release.ini" "$artifactsKloggyWebRoot\"
