@@ -1,6 +1,8 @@
 KLoggy
 ======
 
+[![Build status](https://ci.appveyor.com/api/projects/status/vicnydhrabh3vpru/branch/master?svg=true)](https://ci.appveyor.com/project/tugberkugurlu/kloggy/branch/master)
+
 New version of Bloggy which is written on KRuntime
 
 ## Get it up
