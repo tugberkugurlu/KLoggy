@@ -18,6 +18,12 @@ function Build-K ($projectFile, $configuration, $outputDirectory) {
     kpm build $projectFile --configuration $configuration --out $outputDirectory
 }
 
+function Refresh-Path {
+    $env:PATH += ";$([System.Environment]::GetEnvironmentVariable("Path","USER"))"
+}
+
+Refresh-Path
+
 $scriptRoot = (Split-Path -parent $MyInvocation.MyCommand.Definition)
 $solutionRoot = (get-item $scriptRoot).parent.fullname
 $artifactsRoot = "$solutionRoot\artifacts"
