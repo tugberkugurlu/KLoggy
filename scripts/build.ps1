@@ -8,6 +8,9 @@ param(
 ## When build.cmd is called, we are always inside the ./ path.
 ## Assume that we will always be.
 
+dir "$($env:USERPROFILE)\.kre\" -recurse
+$env:path -split ';'
+
 $scriptRoot = (Split-Path -parent $MyInvocation.MyCommand.Definition)
 $solutionRoot = (get-item $scriptRoot).parent.fullname
 $artifactsRoot = "$solutionRoot\artifacts"
