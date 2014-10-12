@@ -10,6 +10,9 @@ param(
 
 dir "$($env:USERPROFILE)\.kre\" -recurse
 $env:path -split ';'
+Write-Output "=========================================="
+Write-Output "=========================================="
+[System.Environment]::GetEnvironmentVariable("Path","USER") -split ';'
 
 $scriptRoot = (Split-Path -parent $MyInvocation.MyCommand.Definition)
 $solutionRoot = (get-item $scriptRoot).parent.fullname
