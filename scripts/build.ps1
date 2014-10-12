@@ -8,12 +8,6 @@ param(
 ## When build.cmd is called, we are always inside the ./ path.
 ## Assume that we will always be.
 
-dir "$($env:USERPROFILE)\.kre\" -recurse
-$env:path -split ';'
-Write-Output "=========================================="
-Write-Output "=========================================="
-[System.Environment]::GetEnvironmentVariable("Path","USER") -split ';'
-
 $scriptRoot = (Split-Path -parent $MyInvocation.MyCommand.Definition)
 $solutionRoot = (get-item $scriptRoot).parent.fullname
 $artifactsRoot = "$solutionRoot\artifacts"
@@ -23,6 +17,10 @@ $packagesLocalRoot = "$solutionRoot\packages"
 $srcRoot = "$solutionRoot\src"
 $kloggyWebRoot = "$srcRoot\KLoggy.Web"
 $kloggyDomainRoot = "$srcRoot\KLoggy.Domain"
+
+## Refresh the process path env variable
+## further info: http://stackoverflow.com/questions/17794507/reload-the-path-in-powershell
+$env:PATH += ";$([System.Environment]::GetEnvironmentVariable("Path","USER"))"
 
 ## load dependencies
 . $ScriptRoot\_Common.ps1
