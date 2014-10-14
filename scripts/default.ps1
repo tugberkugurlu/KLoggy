@@ -20,7 +20,13 @@ $testsRoot = "$solutionRoot\test"
 $appProjects = Get-ChildItem "$srcRoot\**\$projectFileName" | foreach { $_.FullName }
 $testProjects = Get-ChildItem "$testsRoot\**\$projectFileName" | foreach { $_.FullName }
 
-task default -depends Check, Run-Gulp, Pack
+task default -depends Refresh-Env, Check, Run-Gulp, Pack
+
+task Refresh-Env {
+    ## Refresh the process path env variable
+    ## further info: http://stackoverflow.com/questions/17794507/reload-the-path-in-powershell
+    $env:PATH += ";$([System.Environment]::GetEnvironmentVariable("Path","USER"))"
+}
 
 task Run-Gulp -depends Clean, Run-Npm, Run-Bower {
     $gulpProjects = $appProjects | where {
