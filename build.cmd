@@ -19,4 +19,5 @@ IF EXIST packages\psake goto run
 .nuget\NuGet.exe install psake -ExcludeVersion -o packages -nocache
 
 :run
-@powershell -NoProfile -ExecutionPolicy unrestricted -command "& .\scripts\build.ps1"
+:: Get Psake to Return Non-Zero Return Code on Build Failure (https://github.com/psake/psake/issues/58)
+@powershell -NoProfile -ExecutionPolicy unrestricted -command "&{ Import-Module .\packages\psake\tools\psake.psm1; Invoke-Psake .\scripts\default.ps1; exit !($psake.build_success) }"
