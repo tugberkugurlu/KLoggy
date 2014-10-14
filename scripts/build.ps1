@@ -8,3 +8,6 @@ $psakeToolsDir = "$packagesDir\psake\tools"
 
 Import-Module (join-path $psakeToolsDir "psake.psm1") -force
 Invoke-psake "$scriptDir\default.ps1"
+if ($lastexitcode -ne 0) {
+    throw "Error"
+}
