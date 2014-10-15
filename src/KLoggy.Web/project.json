@@ -4,7 +4,7 @@
         "Tugberk Ugurlu"
     ],
     "description": "New version of Bloggy which is written on KRuntime",
-    "version": "0.0.1-alpha-*",
+    "version": "0.0.1",
     "dependencies": {
         "KLoggy.Domain": "",
         "Kestrel": "1.0.0-*",

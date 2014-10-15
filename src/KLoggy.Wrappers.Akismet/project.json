@@ -1,6 +1,6 @@
 {
     "name": "KLoggy.Wrappers.Akismet",
-    "version": "0.0.1-alpha-*",
+    "version": "0.0.1",
     "description": "Akismet HTTP API wrapper",
     "authors": [
         "Tugberk Ugurlu"

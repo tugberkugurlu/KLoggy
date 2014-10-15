@@ -1,6 +1,6 @@
 {
     "name": "KLoggy.Domain",
-    "version": "0.0.1-alpha-*",
+    "version": "0.0.1",
     "description": "The domain layer for KLoggy",
     "authors": [
         "Tugberk Ugurlu"
