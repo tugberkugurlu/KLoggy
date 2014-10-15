@@ -41,7 +41,7 @@
       }
     }
   },
-  "pack-exclude": [
+  "packExclude": [
       "node_modules/",
       "bower_components/"
   ]
