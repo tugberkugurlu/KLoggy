@@ -21,19 +21,19 @@ namespace KLoggy.Web
             app.UseFileServer();
             app.UseErrorPage();
             
-            app.UsePerRequestServices(services =>
+            app.UseServices(services =>
             {
-                services.SetupOptions<MvcOptions>(options =>
+                services.Configure<MvcOptions>(options =>
                 {
                     // Configure MVC options here. such as filters, etc.
                 });
                 
-                services.SetupOptions<RazorViewEngineOptions>(options =>
+                services.Configure<RazorViewEngineOptions>(options =>
                 {
                     // Configure Razor View Engine options here. such as LanguageViewLocationExpander
                 });
                 
-                services.SetupOptions<AppOptions>(options =>
+                services.Configure<AppOptions>(options =>
                 {
                     options.ServeCdnContent = Convert.ToBoolean(configuration.Get("App:ServeCdnContent"));
                     options.CdnServerBaseUrl = configuration.Get("App:CdnServerBaseUrl");

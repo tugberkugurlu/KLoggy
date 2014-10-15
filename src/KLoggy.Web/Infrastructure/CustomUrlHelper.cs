@@ -18,12 +18,12 @@ namespace KLoggy.Web.Infrastructure
     /// </remarks>
     public class CustomUrlHelper : UrlHelper
     {
-        private readonly IOptionsAccessor<AppOptions> _appOptions;
+        private readonly IOptions<AppOptions> _appOptions;
         private readonly HttpContext _httpContext;
 
         public CustomUrlHelper(IContextAccessor<ActionContext> contextAccessor, 
                                IActionSelector actionSelector,
-                               IOptionsAccessor<AppOptions> appOptions) : base(contextAccessor, actionSelector)
+                               IOptions<AppOptions> appOptions) : base(contextAccessor, actionSelector)
         {
             _appOptions = appOptions;
             _httpContext = contextAccessor.Value.HttpContext;

@@ -9,11 +9,11 @@ namespace KLoggy.Web.Components
 {
     public class AssetsViewComponent : ViewComponent
     {
-        private readonly IOptionsAccessor<AppOptions> _appOptionsAccessor;
+        private readonly IOptions<AppOptions> _appOptionsAccessor;
         private readonly FrontEndAssetManager _assetManager;
         private readonly IUrlHelper _urlHelper;
         
-        public AssetsViewComponent(FrontEndAssetManager assetManager, IUrlHelper urlHelper, IOptionsAccessor<AppOptions> appOptionsAccessor)
+        public AssetsViewComponent(FrontEndAssetManager assetManager, IUrlHelper urlHelper, IOptions<AppOptions> appOptionsAccessor)
         {
             if (assetManager == null)
             {
