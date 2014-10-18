@@ -3,7 +3,7 @@ KLoggy - Yet Another Blog Engine
 
 [![Build status](https://ci.appveyor.com/api/projects/status/vicnydhrabh3vpru?svg=true)](https://ci.appveyor.com/project/tugberkugurlu/kloggy)
 
-New version of [Bloggy](https://github.com/tugberkugurlu/BLoggy) which is written on KRuntime. BLoggy is a small blog engine I use for [my blog](http://www.tugberkugurlu.com) and it's working for my needs. However, the next generation, Cloud Optimized &#8482; ASP.NET platform is approaching and this project is sort of a test area for me.
+New version of [Bloggy](https://github.com/tugberkugurlu/BLoggy) which is written on KRuntime. BLoggy is a small blog engine I use for [my blog](http://www.tugberkugurlu.com) and it's working for my needs. However, the next generation, Cloud Optimized&#8482; ASP.NET platform is approaching and this project is sort of a test area for me.
 
 ## Requirements
 To run this project you need to have following tools installed on your machine:
