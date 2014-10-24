@@ -17,5 +17,11 @@ CLEAN.include(File.join(SRCROOT, "**", "**", "bin"))
 CLEAN.include(File.join(SRCROOT, "**", "**", "node_modules"))
 CLEAN.include(File.join(SRCROOT, "**", "**", "bower_components"))
 
-task:default => [:clean] do
+task:default => [:clean, :check] do
+end
+
+task:check do
+    %w(npm bower kpm gulp).each do |cmd|
+        begin sh "#{cmd} --version > NUL" rescue raise "#{cmd} doesn't exists globally" end
+    end
 end
