@@ -10,7 +10,7 @@
     },
 
     "frameworks": {
-        "aspnet50": { 
+        "net451": { 
             "dependencies": {
                 "Microsoft.Net.Http": "2.2.28"
             }
