@@ -1,4 +1,5 @@
 require 'os'
+require 'json'
 require 'rake'
 require 'rake/clean'
 
@@ -21,7 +22,7 @@ CLEAN.include(File.join(SRCROOT, "**", "**", "bin"))
 CLEAN.include(File.join(SRCROOT, "**", "**", "node_modules"))
 CLEAN.include(File.join(SRCROOT, "**", "**", "bower_components"))
 
-task:default => [:clean, :check, :npm, :bower, :gulp]
+task:default => [:clean, :check, :npm, :bower, :gulp, :pack]
 
 task:check do
     %w(npm bower kpm gulp).each do |cmd|
@@ -58,5 +59,40 @@ task:gulp do
         if File.exists?(_gulpFilePath)
             sh "gulp --cwd \"#{_projectDir}\""
         end
+    end
+end
+
+task:pack => [:build] do
+    _packableProjectFiles = APPPROJECTFILES.select { |file|
+        _fileBody = File.read(file)
+        _project = JSON.parse _fileBody
+        _project.has_key?("commands")
+    }
+    
+    _packableProjectFiles.each do |file|
+        # TODO: Should we get the project name from the project.json?
+        # TODO: have a way of getting the CONFIGURATION as an argument
+        
+        _projectDir = File.dirname(file)
+        _projectName = File.basename(_projectDir)
+        _outputDir = File.join(ARTIFACTSAPPSROOT, _projectName)
+        sh "kpm pack \"#{_projectDir}\" --configuration #{CONFIGURATION} --out \"#{_outputDir}\""
+    end
+end
+
+task:build => [:restore] do
+    APPPROJECTFILES.each do |file|
+        sh "kpm build #{file} --configuration #{CONFIGURATION} --out \"#{ARTIFACTSBUILDROOT}\""
+    end
+    
+    TESTROJECTFILES.each do |file|
+        sh "kpm build #{file} --configuration #{CONFIGURATION} --out \"#{ARTIFACTSTESTROOT}\""
+    end
+end
+
+task:restore do
+    _projectFiles = APPPROJECTFILES + TESTROJECTFILES
+    _projectFiles.each do |file|
+        sh "kpm restore #{File.dirname(file)}"
     end
 end
