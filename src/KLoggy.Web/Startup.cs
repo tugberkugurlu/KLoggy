@@ -1,23 +1,28 @@
+using KLoggy.Domain;
+using KLoggy.Web.Infrastructure;
 using Microsoft.AspNet.Builder;
-using Microsoft.Framework.ConfigurationModel;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Razor;
 using Microsoft.AspNet.Routing;
+using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
-using KLoggy.Web.Infrastructure;
 using System;
-using KLoggy.Domain;
 
 namespace KLoggy.Web
 {
-    public class Startup 
+    public class Startup
     {
-        public void Configure(IApplicationBuilder app)
+        private readonly IConfiguration _configuration;
+
+        public Startup()
         {
-            var configuration = new Configuration();
-            configuration.AddIniFile(@"App_Data\config.ini");
-            configuration.AddIniFile(@"App_Data\git.ini");
-            
+            _configuration = new Configuration()
+                .AddIniFile(@"App_Data\config.ini")
+                .AddIniFile(@"App_Data\git.ini");
+        }
+
+        public void Configure(IApplicationBuilder app)
+        {   
             app.UseFileServer();
             app.UseErrorPage();
             
@@ -35,15 +40,14 @@ namespace KLoggy.Web
                 
                 services.Configure<AppOptions>(options =>
                 {
-                    options.ServeCdnContent = Convert.ToBoolean(configuration.Get("App:ServeCdnContent"));
-                    options.CdnServerBaseUrl = configuration.Get("App:CdnServerBaseUrl");
-                    options.GenerateLowercaseUrls = Convert.ToBoolean(configuration.Get("App:GenerateLowercaseUrls"));
-                    options.EnableBundlingAndMinification = Convert.ToBoolean(configuration.Get("App:EnableBundlingAndMinification"));
-                    options.LatestCommitSha = configuration.Get("git:sha");
+                    options.ServeCdnContent = Convert.ToBoolean(_configuration.Get("App:ServeCdnContent"));
+                    options.CdnServerBaseUrl = _configuration.Get("App:CdnServerBaseUrl");
+                    options.GenerateLowercaseUrls = Convert.ToBoolean(_configuration.Get("App:GenerateLowercaseUrls"));
+                    options.EnableBundlingAndMinification = Convert.ToBoolean(_configuration.Get("App:EnableBundlingAndMinification"));
+                    options.LatestCommitSha = _configuration.Get("git:sha");
                 });
                 
-                // Add MVC services to the services container
-                services.AddMvc(configuration);
+                services.AddMvc(_configuration);
                 
                 services.AddScoped<IUrlHelper, CustomUrlHelper>();
                 services.AddScoped<IProfileLinkManager, InMemoryProfileLinkManager>();
