@@ -6,8 +6,7 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\AspNet\Microsoft.Web.AspNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>13cbf5a6-2e77-42d9-9b42-42ff9d289530</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>e24bae59-d978-42b1-887e-d7c943b90c5a</ProjectGuid>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'" Label="Configuration">

@@ -18,12 +18,12 @@
         "aspnetcore50": { 
             "dependencies": {
                 "Microsoft.Framework.Logging.Interfaces": { "version": "1.0.0-*", "type": "build" },
-                "System.Collections": "4.0.0.0",
-                "System.Console": "4.0.0.0",
-                "System.IO": "4.0.0.0",
-                "System.Linq": "4.0.0.0",
-                "System.Runtime": "4.0.20.0",
-                "System.Threading.Tasks": "4.0.10.0"
+                "System.Collections": "",
+                "System.Console": "",
+                "System.IO": "",
+                "System.Linq": "",
+                "System.Runtime": "",
+                "System.Threading.Tasks": ""
             }
         }
     }
