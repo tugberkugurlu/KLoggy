@@ -1,6 +1,4 @@
-using System;
-
-namespace KLoggy.Web.Infrastructure 
+namespace KLoggy.Web.Infrastructure
 {
     public class AssetFileInfo 
     {

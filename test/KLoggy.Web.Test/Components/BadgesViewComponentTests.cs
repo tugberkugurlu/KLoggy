@@ -1,10 +1,8 @@
 using Xunit;
 using System;
-using KLoggy.Domain;
 using KLoggy.Web.Components;
-using System.Threading.Tasks;
 
-namespace KLoggy.Web.Test 
+namespace KLoggy.Web.Test
 {
     public class BadgesViewComponentTests 
     {

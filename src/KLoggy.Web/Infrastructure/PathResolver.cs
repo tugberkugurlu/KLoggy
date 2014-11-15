@@ -1,5 +1,4 @@
 #if ASPNET50 || ASPNETCORE50 || NET45
-using System;
 using System.IO;
 
 #if ASPNET50 || ASPNETCORE50

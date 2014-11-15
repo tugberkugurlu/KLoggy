@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.OptionsModel;
-using KLoggy.Web;
 
 namespace KLoggy.Web.Infrastructure
 {
